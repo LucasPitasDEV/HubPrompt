@@ -1,0 +1,32 @@
+body {
+    background-color: #212529;
+}
+
+.card {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    height: 100%; /* Garante que todos os cards na mesma linha tenham a mesma altura */
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-title {
+    font-weight: bold;
+    color: #0d6efd; /* Azul do Bootstrap */
+}
+
+.card-text {
+    flex-grow: 1;
+}
+
+.btn-copy {
+    width: 100%;
+}

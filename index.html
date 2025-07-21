@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hub de Prompts de IA</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container my-4">
+        <header class="text-center mb-4">
+            <h1 class="display-5">Hub de Prompts de IA</h1>
+            <p class="lead">Selecione sua pasta de prompts ou crie um novo com IA.</p>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <label for="folder-picker" class="btn btn-primary btn-lg">
+                    <i class="bi bi-folder2-open"></i> Carregar Prompts
+                </label>
+                <input type="file" id="folder-picker" webkitdirectory directory multiple style="display: none;">
+                <button class="btn btn-success btn-lg" type="button" data-bs-toggle="modal" data-bs-target="#createPromptModal">
+                    <i class="bi bi-magic"></i> Criar Prompt com IA
+                </button>
+            </div>
+        </header>
+
+        <main>
+            <div id="prompt-grid" class="row g-4">
+                <!-- Os cards dos prompts serão inseridos aqui pelo JavaScript -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Toast para notificação de "copiado" -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="copy-toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto">Hub de Prompts</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                Prompt copiado para a área de transferência!
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Criação de Prompt -->
+    <div class="modal fade" id="createPromptModal" tabindex="-1" aria-labelledby="createPromptModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="createPromptModalLabel">Construtor de Prompt com IA</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-info d-flex align-items-center" role="alert">
+                        <i class="bi bi-info-circle-fill me-2"></i>
+                        <div>
+                            Seja detalhista e descreva o prompt de forma clara e concisa.
+                        </div>
+                    </div>
+                    <!-- <div class="mb-3">
+                        <label for="apiKey" class="form-label">Sua Chave de API (Groq)</label>
+                        <input type="password" class="form-control" id="apiKey" placeholder="gsk_...">
+                    </div> -->
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Estrutura do Prompt</h5>
+                            <form id="prompt-builder-form">
+                                <div class="mb-3">
+                                    <label for="prompt-filename" class="form-label">Nome do Arquivo (sem .md)</label>
+                                    <input type="text" class="form-control" id="prompt-filename" value="novo-prompt-gerado">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="prompt-persona" class="form-label">Persona</label>
+                                    <input type="text" class="form-control" id="prompt-persona" placeholder="Ex: Um analista de sistemas sênior...">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="prompt-activity" class="form-label">Atividade</label>
+                                    <textarea class="form-control" id="prompt-activity" rows="3" placeholder="Ex: Gerar um código em Python que..."></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="prompt-context" class="form-label">Contexto / Detalhes</label>
+                                    <textarea class="form-control" id="prompt-context" rows="2" placeholder="Ex: O código deve ser eficiente e seguir as boas práticas do PEP8."></textarea>
+                                </div>
+                                 <div class="mb-3">
+                                    <label for="prompt-extras" class="form-label">Refinamentos (Opcional)</label>
+                                    <input type="text" class="form-control" id="prompt-extras" placeholder="Ex: Use um tom amigável, seja conciso, modo bajulador">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>Prompt Gerado</h5>
+                            <div id="spinner" class="d-none text-center my-5">
+                                <div class="spinner-border" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                <p>Gerando prompt...</p>
+                            </div>
+                            <textarea id="generated-prompt" class="form-control" rows="15" readonly placeholder="O prompt gerado pela IA aparecerá aqui..."></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-info" id="generate-prompt-btn">
+                        <i class="bi bi-stars"></i> Gerar
+                    </button>
+                    <button type="button" class="btn btn-success" id="save-prompt-btn" disabled>
+                        <i class="bi bi-download"></i> Salvar e Baixar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
